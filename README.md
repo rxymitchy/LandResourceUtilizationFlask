@@ -1,16 +1,17 @@
 # Land Resource Utilization Assessment Tool
 
 The Land Resource Utilization Assessment Tool is a web application that aims to assess the feasibility of further urban development in a specific area by analyzing critical factors such as population density, available housing units, and zoning type. The tool helps decision-makers determine whether the land in question has reached its development capacity or if there is room for additional construction while ensuring sustainable land use practices.
+
 Table of Contents
 
-    Introduction
-    Features
-    Getting Started
+   1. Introduction
+   2. Features
+   3. Getting Started
         Prerequisites
         Installation
-    Usage
-    Contributing
-    License
+   4. Usage
+   5. Contributing
+   6. License
 
 Introduction
 
