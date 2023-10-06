@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Land Utilization Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-4">Land Utilization Prediction</h2>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="area_id">Area ID (Unique identifier for the specific area being assessed):</label>
+                <input type="text" class="form-control" id="area_id" name="area_id" required>
+            </div>
+            <div class="form-group">
+                <label for="density">Population Density (people per square kilometer):</label>
+                <input type="text" class="form-control" id="density" name="density" required>
+            </div>
+            <div class="form-group">
+                <label for="housing_units">Current Housing Units:</label>
+                <input type="text" class="form-control" id="housing_units" name="housing_units" required>
+            </div>
+            <div class="form-group">
+                <label for="available_land">Available Land for Development (square kilometers):</label>
+                <input type="text" class="form-control" id="available_land" name="available_land" required>
+            </div>
+            <div class="form-group">
+                <label for="max_density">Maximum Sustainable Population Density (people per square kilometer):</label>
+                <input type="text" class="form-control" id="max_density" name="max_density" required>
+            </div>
+            <div class="form-group">
+                <label for="zoning_type">Zoning Type:</label>
+                <input type="text" class="form-control" id="zoning_type" name="zoning_type" required>
+            </div>
+            <div class="form-group">
+                <label for="greenspace">Greenspace Area (square kilometers):</label>
+                <input type="text" class="form-control" id="greenspace" name="greenspace" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        {% if result %}
+        <div class="mt-4">
+            <h3>{{ result }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
