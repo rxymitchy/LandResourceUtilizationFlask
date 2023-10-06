@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 # Load the trained model
 model = joblib.load('random_forest_model.pkl')
+scaler = joblib.load('scaler.pkl')
 
 # Possible zoning types
 possible_zoning_types = ['Residential', 'Commercial','Mixed-Use']
@@ -30,24 +31,23 @@ def predict():
         zoning_type = request.form['zoning_type']
 
         # Subtract greenspace from available land
-        available_land -= greenspace
+        available_land_after_greenspace = available_land - greenspace
 
         # Encode the zoning type
         zoning_encoding = encode_zoning(zoning_type)
 
         # Concatenate the features including the one-hot encoded zoning type
-        features = [area_id, density, housing_units, available_land, max_density, greenspace] + zoning_encoding
+        features = [area_id, density, housing_units, available_land_after_greenspace, max_density, greenspace] + zoning_encoding
 
         # Ensure we only use 7 features
         features = features[:7]
 
-        # Check if land is exhausted or population exceeds the maximum sustainable
-        if available_land <= 0 or features[1] > features[4]:
-            result = "Land is not available for development."
-        else:
-            # Predict using the model
-            prediction = model.predict([features])
-            result = "Land is available for development." if prediction[0] == 1 else "Land is not available for development."
+        # Scale the features
+        scaled_features = scaler.transform([features])
+        
+        # Predict using the model
+        prediction = model.predict(scaled_features)
+        result = "Land is available for development." if prediction[0] == 1 else "Land is not available for development."
 
         return render_template('index.html', result=result, possible_zoning_types=possible_zoning_types)
 
